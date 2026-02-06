@@ -39,19 +39,70 @@ int main()
 
 
 */
+
+
 #include <iostream> 
+#include <string>
+#include <cstdlib>
+
 using namespace std;
-int main(int argc , char* argv[])
+
+void getHelp(); // объявление функции 
+
+// string=="--help"
+int main(int argc , char *argv[])
 {//argc аргумент counter счетчик
   // argv одномерный массив аргументов argument vector
-  int socks[12];
-  for(int i=0 ; i < 12; i++){ //задает 
-    socks [i]=i;
+
+  if (const char* env_p = getenv ("PATH")) {
+    cout << "PATH:" << env_p << "/n";
   }
-  for(int i=0 ; i < 12; i++){//показывает
-      cout << "socks[ " << i << " ] = " << socks[i] << "\n";
-  }
+
+  bool needHelp = false;
+  // for (int i = 0; i < argc; i++) {
+  //     cout << "argv [ " << i << "] = " << argv[i] << '\n';
+  // }
+  // int socks[12];
+  // for(int i=0 ; i < 12; i++){ //задает 
+  //   socks [i]=i;
+  // }
+  // for(int i=0 ; i < 12; i++){//показывает
+  //     cout << "socks[ " << i << " ] = " << socks[i] << "\n";
+  // }
+
   for(int i=0 ; i < argc; i++){//показывает
-      cout << "argv[ " << i << " ] = " << argv[i] << "\n";
+    string arg = argv[i];
+    cout << "argv[ " << i << " ] = " << argv[i] << "\n";
+    if (arg == "--help") {
+      needHelp = true;
+    }
   }
+
+  if (needHelp){
+    getHelp();
+  }
+  
+  return 0;
 }
+/*
+void getHelp(){ 
+  
+  cout << "HEHEHEHEHLPLPPPP!!! \n";
+  const char* author_ptr = getenv ("AUTHOR");
+  const char* version_ptr = getenv ("VERSION");
+  string AUTHOR = " ";
+  string VERSION = " ";
+  if (author_ptr){
+    std::string AUTHOR = author_ptr;
+  }else{
+    cerr<<"iinnnooo AUTHOR not get!!1!"<<"\n";
+  }
+  if (version_ptr){
+    std::string VERSION = version_ptr;
+  }else{
+    cerr<<"iinnnooo VERSION not get!!1!"<<"\n";
+  }
+
+  }
+
+  */
