@@ -8,10 +8,11 @@ using namespace std;
 string dirNames[] = {"Вправо", "Вниз", "Влево", "Вверх"};
 
 int main() {
+    // Размер доски 
     const int SIZE = 4;
     
     int board[SIZE][SIZE] = {0};
-
+      // Закрашенные клетки 
     board[1][1] = 1; 
     board[2][2] = 1; 
     board[3][2] = 1; 
@@ -21,7 +22,7 @@ int main() {
     int y = 2; // Строка 2 
     int dir = 0; 
 
-   
+    // Движение вперед 
     int dx[] = {1, 0, -1, 0};
     int dy[] = {0, 1, 0, -1};
 
@@ -49,7 +50,7 @@ int main() {
             bool canGoAfterTurn = (rx >= 0 && rx < SIZE && ry >= 0 && ry < SIZE && board[ry][rx] == 0);
 
             if (!canGoAfterTurn) {
-                // Если и после поворота нельзя — остановка
+                // Если и после поворота нельзя идти — остановка
                 cout << "Движение невозможно ни вперед, ни вправо." << endl;
                 break;
             }
