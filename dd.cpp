@@ -7,26 +7,49 @@ using namespace std;
 // Названия направлений для вывода лога 
 string dirNames[] = {"Вправо", "Вниз", "Влево", "Вверх"};
 
+// Функция для отображения доски
+void showBoard(int board[4][4], int robotX, int robotY) {
+    cout << "\n  Текущее состояние:" << endl;
+    cout << "  | A B C D |" << endl;
+    cout << "--+---------+" << endl;
+    
+    for (int row = 0; row < 4; row++) {
+        cout << (4 - row) << " | ";
+        for (int col = 0; col < 4; col++) {
+            if (col == robotX && row == robotY) {
+                cout << "R "; // Робот
+            } else if (board[row][col] == 1) {
+                cout << "■ "; // Закрашенная клетка
+            } else {
+                cout << "· "; // Пустая клетка
+            }
+        }
+        cout << "|" << endl;
+    }
+    cout << "--+---------+" << endl;
+}
+
 int main() {
     // Размер доски 
     const int SIZE = 4;
     
     int board[SIZE][SIZE] = {0};
-      // Закрашенные клетки 
-    board[1][1] = 1; 
-    board[2][2] = 1; 
-    board[3][2] = 1; 
+    // Закрашенные клетки 
+    board[1][1] = 1; // B3
+    board[2][2] = 1; // C2
+    board[3][2] = 1; // D2
 
-   // Точка где стоит Робот 
+    // Точка где стоит Робот 
     int x = 0; // Столбец A
-    int y = 2; // Строка 2 
+    int y = 2; // Строка 3 
     int dir = 0; 
 
     // Движение вперед 
     int dx[] = {1, 0, -1, 0};
     int dy[] = {0, 1, 0, -1};
 
-    cout << "Робот начинает в A2, идет в сторону B2" << endl;
+    cout << "Робот начинает в A3, идет в сторону B3" << endl;
+    showBoard(board, x, y);
 
     while (true) {
         int nx = x + dx[dir];
@@ -38,10 +61,11 @@ int main() {
         if (canGoStraight) {
             x = nx;
             y = ny;
-            cout << "Шаг вперед в клетку: " << (char)('A' + x) << (4 - y) << endl;
+            cout << "\nШаг вперед в клетку: " << (char)('A' + x) << (4 - y) << endl;
+            showBoard(board, x, y);
         } else {
             // Препятствие
-            cout << "Препятствие! Поворот направо." << endl;
+            cout << "\nПрепятствие! Поворот направо." << endl;
             dir = (dir + 1) % 4;
 
             // Проверяем, можно ли идти после поворота
@@ -51,7 +75,8 @@ int main() {
 
             if (!canGoAfterTurn) {
                 // Если и после поворота нельзя идти — остановка
-                cout << "Движение невозможно ни вперед, ни вправо." << endl;
+                cout << "\nДвижение невозможно ни вперед, ни вправо." << endl;
+                showBoard(board, x, y);
                 break;
             }
             // Если можно, то на следующей итерации цикла он пойдет в новом направлении
@@ -60,6 +85,7 @@ int main() {
 
     cout << "---------------------------" << endl;
     cout << "ИТОГ: Робот остановился в " << (char)('A' + x) << (4 - y) << endl;
+    showBoard(board, x, y);
 
     return 0;
 }
